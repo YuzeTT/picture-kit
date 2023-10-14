@@ -1,4 +1,4 @@
-import { AutoComplete, Button, Card, DatePicker, Input, Space } from "antd";
+import { AutoComplete, Button, Card, DatePicker, Input, Space, message } from "antd";
 import { useCallback, useRef, useState } from "react";
 import { toPng } from 'html-to-image';
 
@@ -21,11 +21,18 @@ export default function LuckinCoffee() {
     remark: '建议尽快饮用，风味更佳'
   })
   const ref = useRef<HTMLDivElement>(null)
-
+  const [messageApi, contextHolder] = message.useMessage();
+  const key = 'updatable';
   const out = useCallback(() => {
     if (ref.current === null) {
       return
     }
+
+    messageApi.open({
+      key,
+      type: 'loading',
+      content: 'Loading...',
+    });
 
     toPng(ref.current, { cacheBust: true, })
       .then((dataUrl) => {
@@ -33,9 +40,19 @@ export default function LuckinCoffee() {
         link.download = 'my-image-name.png'
         link.href = dataUrl
         link.click()
+        messageApi.open({
+          key,
+          type: 'success',
+          content: '生成成功，请留意下载界面',
+        });
       })
       .catch((err) => {
         console.log(err)
+        messageApi.open({
+          key,
+          type: 'error',
+          content: '生成失败，请将控制台截图反馈给开发者',
+        });
       })
   }, [ref])
 
@@ -57,6 +74,7 @@ export default function LuckinCoffee() {
 
   return (
     <div>
+      {contextHolder}
       <Space direction="vertical" className="w-full">
         <Card title="信息" size="small" extra={<a onClick={fillTest}>测试数据</a>}>
           <Space direction="vertical">
