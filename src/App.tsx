@@ -37,6 +37,7 @@ function App() {
         <div className='px-4 py-2 max-w-lg mx-auto'>
           <LuckinCoffee></LuckinCoffee>
         </div>
+        <div className='text-xs text-center py-3 op-50'>© 2023 YuzeTT</div>
       </ConfigProvider>
     </>
   )
