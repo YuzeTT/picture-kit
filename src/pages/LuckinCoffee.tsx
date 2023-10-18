@@ -9,6 +9,7 @@ export default function LuckinCoffee() {
 
   const [data, setData] = useState({
     name: '',
+    sex: '',
     code: '',
     type: '',
     number1: '',
@@ -35,7 +36,7 @@ export default function LuckinCoffee() {
     });
 
     toPng(ref.current, { cacheBust: true, })
-      .then((dataUrl) => {
+      .then((dataUrl:any) => {
         const link = document.createElement('a')
         link.download = 'my-image-name.png'
         link.href = dataUrl
@@ -59,6 +60,7 @@ export default function LuckinCoffee() {
   const fillTest = () => {
     setData({
       name: '刘**',
+      sex: '先生',
       code: '114',
       type: '自提',
       number1: '1',
@@ -78,7 +80,15 @@ export default function LuckinCoffee() {
       <Space direction="vertical" className="w-full">
         <Card title="信息" size="small" extra={<a onClick={fillTest}>测试数据</a>}>
           <Space direction="vertical">
-            <Input addonBefore="Hi，" addonAfter="先生" className="w-50" placeholder="您的姓名" value={data.name} onChange={(v)=>setData({...data, name: v.target.value})}/>
+            <Space.Compact>
+              <Input addonBefore="Hi，" className="w-50" placeholder="您的姓名" value={data.name} onChange={(v)=>setData({...data, name: v.target.value})}/>
+              <AutoComplete
+                options={[{value: '女士'},{value: '先生'}]}
+                className="w-20"
+                value={data.sex} onChange={(v)=>setData({...data, sex: v})}
+                placeholder="性别"
+              />
+            </Space.Compact>
             <Space.Compact>
               <Input placeholder="取餐码" value={data.code} onChange={(v)=>setData({...data, code: v.target.value})}/>
               <AutoComplete
@@ -126,7 +136,7 @@ export default function LuckinCoffee() {
           <div className="flex items-center justify-center">
             <div className="bg-[#A8D3FD] rounded-md relative w-80 " ref={ref}>
               <img src="/lucking_coffee.svg" alt="" className="absolute w-8 right-4 top-5" />
-              <div className="px-3 text-xl">Hi，{data.name || '未填写'} 先生</div>
+              <div className="px-3 text-xl">Hi，{data.name || '未填写'} {data.sex}</div>
               <div className="flex items-center px-3 pt-2">
                 <div className="font-bold text-4xl">{data.code || '000'}</div>
                 <div className="text-lg pl-2">{data.type || '自己飞走'}</div>
