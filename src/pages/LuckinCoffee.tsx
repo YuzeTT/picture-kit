@@ -127,7 +127,7 @@ export default function LuckinCoffee() {
             </Space.Compact>
             <Space.Compact className="w-full">
               <DatePicker placeholder="日期" onChange={(_,v)=>setData({...data, date: v})} format={'YYYY-MM-DD'} showToday />
-              <DatePicker picker="time" placeholder="时间" onChange={(_,v)=>setData({...data, time: v})} format={'hh:mm'} />
+              <DatePicker picker="time" placeholder="时间" onChange={(_,v)=>setData({...data, time: v})} format={'HH:mm'} use12Hours={false} />
             </Space.Compact>
             <Input placeholder="备注" defaultValue={'建议尽快饮用，风味更佳'} className="" value={data.remark} onChange={(v)=>setData({...data, remark: v.target.value})}/>
           </Space>
