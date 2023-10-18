@@ -39,7 +39,7 @@ function App() {
           <Alert
             message="公告"
             description={<>
-              <div>本站永久免费，如需要其他模板请联系vx: hong_yu1024</div>
+              <div>如需要其他模板请联系vx: hong_yu1024</div>
               <div className='font-bold'>如果您有github帐号欢迎给我个Star，万分感激！！！ <a href="https://github.com/YuzeTT/picture-kit">转到Github</a></div>
             </>}
             type="success"
